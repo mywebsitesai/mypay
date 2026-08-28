@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IconVault — Premium PNG Icons</title>
+<meta name="description" content="Hand-crafted PNG icons, priced individually. Instant download after secure checkout — no account needed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="brand"><span class="brand-mark">IV</span>IconVault</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#icons" class="current">Icons</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="refund-policy.html">Refunds</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <p class="eyebrow">IconVault</p>
+  <h1>Icons that pay<br>for themselves</h1>
+  <p class="lead">Hand-crafted PNG icons, priced individually. Pay securely by card, UPI, or wallet — your download starts the instant payment clears.</p>
+  <div class="hero-ctas">
+    <a href="#icons" class="btn btn-primary">Browse Icons</a>
+    <a href="#support" class="btn btn-ghost">Support the Project</a>
+  </div>
+  <div class="stat-row">
+    <div class="stat"><b>39+</b><span>Original Icons</span></div>
+    <div class="stat"><b>Instant</b><span>Delivery</span></div>
+    <div class="stat"><b>Secure</b><span>Checkout</span></div>
+  </div>
+</section>
+
+<main>
+  <div id="icons"></div>
+  <div class="section-head">
+    <div>
+      <h2 class="section-title">Icon Collection</h2>
+      <p class="section-sub">Click "Buy &amp; Download" — pay securely, and the PNG downloads automatically.</p>
+    </div>
+    <div>
+      <div class="currency-toggle" id="currencyToggle">
+        <button data-cur="INR" class="active">₹ INR</button>
+        <button data-cur="USD">$ USD</button>
+      </div>
+    </div>
+  </div>
+  <p class="curr-hint" id="currHint" style="display:none;">USD pricing shown for international visitors — checkout is currently processed in Indian Rupees (₹).</p>
+
+  <div class="filter-bar">
+    <input type="search" id="iconSearch" class="search-input" placeholder="Search icons…" aria-label="Search icons">
+    <div class="category-pills" id="categoryPills"></div>
+  </div>
+
+  <div class="grid" id="iconGrid"></div>
+
+  <div class="donate-wrap" id="support">
+    <h2>Support this project</h2>
+    <p>If IconVault has been useful to you, you can send any amount you like — no fixed price, pay what feels right.</p>
+    <div class="donate-row">
+      <input type="number" id="donateAmount" min="1" placeholder="₹ Amount">
+      <button id="donateBtn">Send donation</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div>© <span id="year"></span> IconVault · Contact: rushikeshkhode2601@gmail.com · +91 7276324318</div>
+  <div class="foot-links">
+    <a href="terms.html">Terms</a> ·
+    <a href="privacy.html">Privacy Policy</a> ·
+    <a href="refund-policy.html">Refund Policy</a> ·
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  // ---------------- EDIT THIS ----------------
+  var RAZORPAY_KEY = "YOUR_KEY_ID";      // rzp_test_xxx or rzp_live_xxx
+  var BUSINESS_NAME = "IconVault";
+  // --------------------------------------------
+
+  var ICONS = [
+    { id: "sun",        name: "Sun Icon",        category: "Nature",        price: 19, usdPrice: 1.99, file: "assets/sun.png" },
+    { id: "heart",      name: "Heart Icon",      category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/heart.png" },
+    { id: "star",       name: "Star Icon",       category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/star.png" },
+    { id: "cloud",      name: "Cloud Icon",      category: "Nature",        price: 19, usdPrice: 1.99, file: "assets/cloud.png" },
+    { id: "rocket",     name: "Rocket Icon",     category: "Tech",          price: 29, usdPrice: 2.99, file: "assets/rocket.png" },
+    { id: "leaf",       name: "Leaf Icon",       category: "Nature",        price: 19, usdPrice: 1.99, file: "assets/leaf.png" },
+    { id: "moon",       name: "Moon Icon",       category: "Nature",        price: 19, usdPrice: 1.99, file: "assets/moon.png" },
+    { id: "flower",     name: "Flower Icon",     category: "Nature",        price: 19, usdPrice: 1.99, file: "assets/flower.png" },
+    { id: "tree",       name: "Tree Icon",       category: "Nature",        price: 19, usdPrice: 1.99, file: "assets/tree.png" },
+    { id: "mountain",   name: "Mountain Icon",   category: "Nature",        price: 19, usdPrice: 1.99, file: "assets/mountain.png" },
+    { id: "snowflake",  name: "Snowflake Icon",  category: "Nature",        price: 19, usdPrice: 1.99, file: "assets/snowflake.png" },
+    { id: "wave",       name: "Wave Icon",       category: "Nature",        price: 19, usdPrice: 1.99, file: "assets/wave.png" },
+    { id: "bolt",       name: "Bolt Icon",       category: "Tech",          price: 19, usdPrice: 1.99, file: "assets/bolt.png" },
+    { id: "wifi",       name: "Wifi Icon",       category: "Tech",          price: 19, usdPrice: 1.99, file: "assets/wifi.png" },
+    { id: "battery",    name: "Battery Icon",    category: "Tech",          price: 19, usdPrice: 1.99, file: "assets/battery.png" },
+    { id: "camera",     name: "Camera Icon",     category: "Tech",          price: 29, usdPrice: 2.99, file: "assets/camera.png" },
+    { id: "laptop",     name: "Laptop Icon",     category: "Tech",          price: 29, usdPrice: 2.99, file: "assets/laptop.png" },
+    { id: "bulb",       name: "Bulb Icon",       category: "Tech",          price: 19, usdPrice: 1.99, file: "assets/bulb.png" },
+    { id: "lock",       name: "Lock Icon",       category: "Tech",          price: 19, usdPrice: 1.99, file: "assets/lock.png" },
+    { id: "shield",     name: "Shield Icon",     category: "Tech",          price: 24, usdPrice: 2.49, file: "assets/shield.png" },
+    { id: "mail",       name: "Mail Icon",       category: "Communication", price: 19, usdPrice: 1.99, file: "assets/mail.png" },
+    { id: "chat",       name: "Chat Icon",       category: "Communication", price: 19, usdPrice: 1.99, file: "assets/chat.png" },
+    { id: "bell",       name: "Bell Icon",       category: "Communication", price: 19, usdPrice: 1.99, file: "assets/bell.png" },
+    { id: "megaphone",  name: "Megaphone Icon",  category: "Communication", price: 19, usdPrice: 1.99, file: "assets/megaphone.png" },
+    { id: "briefcase",  name: "Briefcase Icon",  category: "Business",      price: 24, usdPrice: 2.49, file: "assets/briefcase.png" },
+    { id: "chart",      name: "Chart Icon",      category: "Business",      price: 19, usdPrice: 1.99, file: "assets/chart.png" },
+    { id: "wallet",     name: "Wallet Icon",     category: "Business",      price: 24, usdPrice: 2.49, file: "assets/wallet.png" },
+    { id: "cart",       name: "Cart Icon",       category: "Business",      price: 19, usdPrice: 1.99, file: "assets/cart.png" },
+    { id: "tag",        name: "Tag Icon",        category: "Business",      price: 19, usdPrice: 1.99, file: "assets/tag.png" },
+    { id: "trophy",     name: "Trophy Icon",     category: "Business",      price: 29, usdPrice: 2.99, file: "assets/trophy.png" },
+    { id: "gift",       name: "Gift Icon",       category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/gift.png" },
+    { id: "book",       name: "Book Icon",       category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/book.png" },
+    { id: "music",      name: "Music Icon",      category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/music.png" },
+    { id: "coffee",     name: "Coffee Icon",     category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/coffee.png" },
+    { id: "clock",      name: "Clock Icon",      category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/clock.png" },
+    { id: "calendar",   name: "Calendar Icon",   category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/calendar.png" },
+    { id: "key",        name: "Key Icon",        category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/key.png" },
+    { id: "umbrella",   name: "Umbrella Icon",   category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/umbrella.png" },
+    { id: "home",       name: "Home Icon",       category: "Lifestyle",     price: 19, usdPrice: 1.99, file: "assets/home.png" }
+  ];
+
+  var CURRENCY = localStorage.getItem('iv_currency') || 'INR';
+  var SEARCH_TERM = '';
+  var SELECTED_CATEGORY = 'All';
+
+  function formatPrice(icon) {
+    if (CURRENCY === 'USD') {
+      return '$' + icon.usdPrice.toFixed(2);
+    }
+    return '₹' + icon.price.toFixed(2);
+  }
+
+  var grid = document.getElementById('iconGrid');
+  var categoryPillsEl = document.getElementById('categoryPills');
+  var searchInput = document.getElementById('iconSearch');
+
+  var CATEGORIES = ['All'].concat(
+    ICONS.map(function (i) { return i.category; }).filter(function (c, i, arr) { return arr.indexOf(c) === i; })
+  );
+
+  function renderCategoryPills() {
+    categoryPillsEl.innerHTML = '';
+    CATEGORIES.forEach(function (cat) {
+      var btn = document.createElement('button');
+      btn.textContent = cat;
+      btn.className = cat === SELECTED_CATEGORY ? 'active' : '';
+      btn.onclick = function () {
+        SELECTED_CATEGORY = cat;
+        renderCategoryPills();
+        renderGrid();
+      };
+      categoryPillsEl.appendChild(btn);
+    });
+  }
+  renderCategoryPills();
+
+  function getFilteredIcons() {
+    var term = SEARCH_TERM.trim().toLowerCase();
+    return ICONS.filter(function (icon) {
+      var matchesCategory = SELECTED_CATEGORY === 'All' || icon.category === SELECTED_CATEGORY;
+      var matchesSearch = !term || icon.name.toLowerCase().indexOf(term) !== -1;
+      return matchesCategory && matchesSearch;
+    });
+  }
+
+  function renderGrid() {
+    grid.innerHTML = '';
+    var filtered = getFilteredIcons();
+    if (filtered.length === 0) {
+      grid.innerHTML = '<p class="no-results">No icons match your search.</p>';
+      return;
+    }
+    filtered.forEach(function (icon) {
+      var card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML =
+        '<div class="thumb"><img src="' + icon.file + '" alt="' + icon.name + '" loading="lazy"></div>' +
+        '<div class="card-body">' +
+          '<h3>' + icon.name + '</h3>' +
+          '<div class="price">' + formatPrice(icon) + '</div>' +
+          '<button class="buy-btn">Buy &amp; Download</button>' +
+        '</div>';
+      var btn = card.querySelector('.buy-btn');
+      btn.onclick = function () { startPayment(icon, btn); };
+      grid.appendChild(card);
+    });
+  }
+  renderGrid();
+
+  searchInput.addEventListener('input', function (e) {
+    SEARCH_TERM = e.target.value;
+    renderGrid();
+  });
+
+  var currencyToggle = document.getElementById('currencyToggle');
+  var currHint = document.getElementById('currHint');
+
+  function syncCurrencyUI() {
+    currencyToggle.querySelectorAll('button').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.cur === CURRENCY);
+    });
+    currHint.style.display = CURRENCY === 'USD' ? 'block' : 'none';
+  }
+  syncCurrencyUI();
+
+  currencyToggle.addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    CURRENCY = btn.dataset.cur;
+    localStorage.setItem('iv_currency', CURRENCY);
+    syncCurrencyUI();
+    renderGrid();
+  });
+
+  function downloadFile(path, filename) {
+    var a = document.createElement('a');
+    a.href = path;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  function startPayment(icon, btn) {
+    if (RAZORPAY_KEY === "YOUR_KEY_ID") {
+      alert("Checkout is launching soon! We're currently completing payment verification — please check back in a day or two.");
+      return;
+    }
+    btn.disabled = true;
+    btn.innerText = "Opening…";
+
+    var options = {
+      key: RAZORPAY_KEY,
+      amount: Math.round(icon.price * 100),
+      currency: "INR",
+      name: BUSINESS_NAME,
+      description: "Purchase: " + icon.name,
+      handler: function (response) {
+        downloadFile(icon.file, icon.id + ".png");
+        alert("Payment successful! Your download has started.\nPayment ID: " + response.razorpay_payment_id);
+        btn.disabled = false;
+        btn.innerText = "Buy & Download";
+      },
+      modal: {
+        ondismiss: function () {
+          btn.disabled = false;
+          btn.innerText = "Buy & Download";
+        }
+      },
+      theme: { color: "#10192E" }
+    };
+    var rzp = new Razorpay(options);
+    rzp.on('payment.failed', function (response) {
+      alert("Payment failed: " + response.error.description);
+      btn.disabled = false;
+      btn.innerText = "Buy & Download";
+    });
+    rzp.open();
+  }
+
+  document.getElementById('donateBtn').onclick = function () {
+    if (RAZORPAY_KEY === "YOUR_KEY_ID") {
+      alert("Checkout is launching soon! We're currently completing payment verification — please check back in a day or two.");
+      return;
+    }
+    var amountInput = document.getElementById('donateAmount');
+    var amount = parseFloat(amountInput.value);
+    if (!amount || amount < 1) {
+      alert("Please enter a valid amount (minimum ₹1).");
+      return;
+    }
+    var options = {
+      key: RAZORPAY_KEY,
+      amount: Math.round(amount * 100),
+      currency: "INR",
+      name: BUSINESS_NAME,
+      description: "Donation / Support",
+      handler: function (response) {
+        alert("Thank you for your support!\nPayment ID: " + response.razorpay_payment_id);
+        amountInput.value = "";
+      },
+      theme: { color: "#C9A24B" }
+    };
+    var rzp = new Razorpay(options);
+    rzp.on('payment.failed', function (response) {
+      alert("Payment failed: " + response.error.description);
+    });
+    rzp.open();
+  };
+</script>
+
+</body>
+</html>
